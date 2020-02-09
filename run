@@ -1,0 +1,125 @@
+#!/usr/bin/env node
+const yaml = require('js-yaml')
+const fs   = require('fs')
+const system = require('child_process')
+const chalk = require('chalk')
+
+function log(color, message, ...messages) {
+  console.log(chalk[color](message + messages.join(' ')))
+}
+
+/**
+* Function to issue bash commands, returns the stdout.
+* @param command
+* @returns {string} stdout
+*/
+async function exec(command) {
+  return new Promise((resolve, reject) => {
+    const child = system.exec(command)
+    let stdout = ''
+    
+    child.stdout.on('data', data => {
+      log('magenta', data)
+      stdout += '\n' + data
+    })
+    
+    child.stderr.on('data', data => {
+      log('red', data)
+    })
+  
+    child.on('error', error => {
+      log('red', error)
+      reject(error)
+    })
+  
+    child.on('close', code => {
+      resolve(stdout)
+    })
+  })
+}
+
+function getYaml(path) {
+  return yaml.safeLoad(fs.readFileSync(path, 'utf8'))
+}
+
+function getArgsFromArray(args) {
+  return args.map(arg => arg.match(/^-/) ? arg : `--${arg}`).join(' ')
+}
+
+function getYTDLCommands(options) {
+  const { settings, lists } = options
+  const { debug } = settings
+  
+  return Object.keys(lists).map(collection => {
+    const { args, downloader, url, output } = settings[collection]
+    const list = lists[collection]
+
+    return Object.keys(list).map(type => {
+      const li = list[type]
+
+      const argsGlobal = args.global ? getArgsFromArray(args.global) : ''
+      const argsType = args[type] ? getArgsFromArray(args[type]) : ''
+      const argsCombined = argsGlobal + ' ' + argsType
+      
+      const urlType = url[type] || ''
+      const urlCombined = url.global + urlType
+      
+      const outputArg = output.arg || ''
+      const outputGlobal = output.global || ''
+      const outputType = output[type] || ''
+      const outputFileName = output.filename || ''
+      const outputCombined = `${outputArg} '${outputGlobal}${outputType}${outputFileName}'`
+      
+      const commands = li.map(id => `${downloader} ${argsCombined} "${urlCombined}${id}" ${outputCombined}`)
+
+      if (debug) {
+        log('magenta', '- - - - - - - - - - - - -')
+        log('magenta', 'collection:', collection)
+        log('magenta', 'type:', type)
+        log('magenta', 'url combined:', urlCombined)
+        log('magenta', 'args combined:', argsCombined)
+        log('magenta', 'output combined:', outputCombined)
+      }
+
+      return commands
+    })
+  }).flat(Infinity)
+}
+
+async function sleepRandomRange(seconds) {
+  const amount = Math.floor(Math.random() * (seconds * 1000))
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(amount)
+    }, amount)
+  })
+}
+
+async function main() {
+  const settings = getYaml('./download_settings.yaml')
+  const lists = getYaml('./download_list.yaml')
+  const commands = getYTDLCommands({ settings, lists })
+  const results = []
+  console.log(commands)
+  
+  for (let i = 0; i < commands.length; i++) {
+    const command = commands[i]
+    log('white', '- - - - - - - - - - - - -')
+    log('green', `Downloading item ${i + 1} out of ${commands.length}`)
+    log('cyanBright', 'Command: ', command)
+
+    const result = await exec(command)
+    // TODO: write to log
+    // results.push(result)
+
+    await sleepRandomRange(30)
+  }
+    
+}
+
+
+try {
+  main()
+} catch (error) {
+  log('red', error)
+}

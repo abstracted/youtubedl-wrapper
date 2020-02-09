@@ -1,0 +1,15 @@
+{
+  "name": "downloads",
+  "version": "1.0.0",
+  "description": "Wrapper to help manage downloads for youtube-dl",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Cameron Sanders",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "js-yaml": "^3.13.1"
+  }
+}

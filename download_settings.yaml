@@ -1,0 +1,52 @@
+---
+debug: true
+soundcloud:
+  downloader: youtube-dl
+  output:
+    arg: -o
+    global: soundcloud/
+    links: "%(uploader)s/"
+    filename: "%(title)s.%(ext)s"
+  url:
+    global: https://www.soundcloud.com/
+  args:
+    global:
+      - verbose
+      - force-ipv4
+      - continue
+      - no-check-certificate
+      - ignore-errors
+      - sleep-interval 5
+      - max-sleep-interval 10
+      - audio-format mp3
+      - audio-quality 0
+      - embed-thumbnail
+youtube:
+  downloader: youtube-dl
+  output:
+    arg: -o
+    global: youtube/
+    playlists: "%(playlist_title)s/"
+    users: "%(uploader)s/"
+    filename: "%(title)s.%(ext)s"
+  url:
+    global: https://www.youtube.com/
+    playlists: playlist?list=
+    users: channel/
+  args:
+    global:
+      - verbose
+      - force-ipv4
+      - continue
+      - write-info-json  
+      - no-check-certificate
+      - ignore-errors
+      - sleep-interval 5
+      - max-sleep-interval 10
+      - extract-audio
+      - audio-format mp3
+      - audio-quality 0
+      - embed-thumbnail
+    playlists:
+      - yes-playlist
+      - playlist-random
