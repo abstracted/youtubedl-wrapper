@@ -18,6 +18,7 @@ soundcloud:
       - ignore-errors
       - sleep-interval 5
       - max-sleep-interval 10
+      - extract-audio
       - audio-format mp3
       - audio-quality 0
       - embed-thumbnail
