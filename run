@@ -69,8 +69,9 @@ function getYTDLCommands(options) {
       const outputType = output[type] || ''
       const outputFileName = output.filename || ''
       const outputCombined = `${outputArg} '${outputGlobal}${outputType}${outputFileName}'`
-      
-      const commands = li.map(id => `${downloader} ${argsCombined} "${urlCombined}${id}" ${outputCombined}`)
+
+      // TODO: Need to figure out a way to bake --download-archive into the yaml file instead of putting it here
+      const commands = li.map(id => `${downloader} ${argsCombined} --download-archive archives/${id}.txt "${urlCombined}${id}" ${outputCombined}`)
 
       if (debug) {
         log('magenta', '- - - - - - - - - - - - -')
@@ -96,8 +97,8 @@ async function sleepRandomRange(seconds) {
 }
 
 async function main() {
-  const settings = getYaml('./download_settings.yaml')
-  const lists = getYaml('./download_list.yaml')
+  const settings = getYaml(`${__dirname}/download_settings.yaml`)
+  const lists = getYaml(`${__dirname}/download_list.yaml`)
   const commands = getYTDLCommands({ settings, lists })
   const results = []
   console.log(commands)
@@ -109,8 +110,7 @@ async function main() {
     log('cyanBright', 'Command: ', command)
 
     const result = await exec(command)
-    // TODO: write to log
-    // results.push(result)
+    // TODO: maybe write result to log
 
     await sleepRandomRange(30)
   }
