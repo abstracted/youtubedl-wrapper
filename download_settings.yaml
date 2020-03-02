@@ -16,8 +16,8 @@ soundcloud:
       - continue
       - no-check-certificate
       - ignore-errors
-      - sleep-interval 5
-      - max-sleep-interval 10
+      - sleep-interval 60
+      - max-sleep-interval 90
       - extract-audio
       - audio-format mp3
       - audio-quality 0
@@ -42,8 +42,8 @@ youtube:
       - write-info-json  
       - no-check-certificate
       - ignore-errors
-      - sleep-interval 5
-      - max-sleep-interval 10
+      - sleep-interval 60
+      - max-sleep-interval 90
       - extract-audio
       - audio-format mp3
       - audio-quality 0
