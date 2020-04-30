@@ -7,7 +7,6 @@ Download lists can be modified in download_list.yml
 ### Setup
 ```
 sudo pip3 install youtube-dl
-sudo pip3 install scdl
 npm i
 ./run
 ```
