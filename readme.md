@@ -40,3 +40,11 @@ Download settings for youtube-dl or other downloads is maintained in `download_s
 ### Download List
 
 The list of items to bulk download is maintained in `download_list.yaml`
+
+## Running
+
+Once you write your configurations, you can run the downloader by entering the folloing in your terminal at the project root:
+
+```
+./run
+```
