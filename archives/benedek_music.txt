@@ -60,3 +60,6 @@ soundcloud 620019000
 soundcloud 619994073
 soundcloud 619998342
 soundcloud 620029797
+soundcloud 770602582
+soundcloud 794552599
+soundcloud 830017264

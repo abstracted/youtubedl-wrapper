@@ -131,3 +131,6 @@ soundcloud 224007256
 soundcloud 221439875
 soundcloud 189531461
 soundcloud 133278648
+soundcloud 292899049
+soundcloud 767811064
+soundcloud 777962653
