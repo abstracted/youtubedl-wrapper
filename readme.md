@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Simple Bulk Music Download Manager
 
 This is a unix command line script used to download from soundcloud, spotify and youtube. 
@@ -41,17 +40,3 @@ Download settings for youtube-dl or other downloads is maintained in `download_s
 ### Download List
 
 The list of items to bulk download is maintained in `download_list.yaml`
-=======
-## Script to bulk download from Youtube
-
-Youtube-DL settings can be modified in download_settings.yml
-
-Download lists can be modified in download_list.yml
-
-### Setup
-```
-sudo pip3 install youtube-dl
-npm i
-./run
-```
->>>>>>> e277b106f36bd7e939026005c437ec66efb22593
