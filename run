@@ -100,8 +100,6 @@ async function main() {
   const settings = getYaml(`${__dirname}/download_settings.yaml`)
   const lists = getYaml(`${__dirname}/download_list.yaml`)
   const commands = getYTDLCommands({ settings, lists })
-  console.log(commands)
-  process.exit()
   
   for (let i = 0; i < commands.length; i++) {
     const command = commands[i]
