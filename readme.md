@@ -1,4 +1,4 @@
-# Simple Bulk Music Download Manager
+# Simple Bulk Download Manager
 
 This is a unix command line script used to download from soundcloud, spotify and youtube. 
 
@@ -7,7 +7,7 @@ It is meant to be pointed at an entire users library or playlist and download al
 
 ## How It Works
 
-It functions by using third party scripts, by default [youtube-dl](https://github.com/ytdl-org/youtube-dl/) and [spotify-downloader](https://github.com/Ritiek/Spotify-Downloader).
+It functions by using third party scripts, by default [youtube-dl](https://github.com/ytdl-org/youtube-dl/) .
 
 What makes this a simple download manager is that all of the download settings, including the list of links to download, are manged in configuration files. 
 
